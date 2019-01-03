@@ -1,14 +1,18 @@
 package com.example.paul.phpretrofitupload;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.paul.phpretrofitupload.Remote.IUploadAPI;
 import com.example.paul.phpretrofitupload.Remote.RetrofitClient;
@@ -24,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnUpload;
     ImageView imageView;
+
+    Uri selectedFileUri;
 
     private IUploadAPI getAPIUpload() {
         return RetrofitClient.getClient(BASE_URL).create(IUploadAPI.class);
@@ -52,6 +58,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "permission granted", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show();
+                }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == PICK_FILE_REQUEST) {
+                if (data == null) {
+                    return;
+                }
+                else {
+                    selectedFileUri = data.getData();
+                    if (selectedFileUri != null && !selectedFileUri.getPath().isEmpty()) {
+                        imageView.setImageURI(selectedFileUri);
+                    }
+                    else {
+                        Toast.makeText(this, "Can't upload file to server, data is null", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }
     }
 
     private void chooseFile() {
