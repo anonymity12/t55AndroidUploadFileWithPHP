@@ -6,6 +6,6 @@ package com.example.paul.phpretrofitupload.Utils;
  * Desc:
  */
 
-interface UploadCallbacks {
+public interface UploadCallbacks {
     void onProgressUpdate(int percentage);
 }
