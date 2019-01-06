@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements UploadCallbacks {
-
+    private static final String TAG = "tt1";
 
     public static final String BASE_URL = "http://192.168.1.4/";
     public static final int REQUEST_PERMISSION = 101;
@@ -142,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements UploadCallbacks {
             ProgressRequestBody requestFile = new ProgressRequestBody(file, this);
 
             final MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", file.getName(), requestFile);
-
+            Log.e(TAG, "uploadFile: file name: " + file.getName());
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -152,6 +153,8 @@ public class MainActivity extends AppCompatActivity implements UploadCallbacks {
                                 public void onResponse(Call<String> call, Response<String> response) {
                                     dialog.dismiss();
                                     Toast.makeText(MainActivity.this, "Uploaded!", Toast.LENGTH_SHORT).show();
+                                    Log.e(TAG, "onResponse: call:" + call );
+                                    Log.e(TAG, "onResponse: resp: " + response);
                                 }
 
                                 @Override

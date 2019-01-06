@@ -14,7 +14,7 @@ import retrofit2.http.Part;
 
 public interface IUploadAPI {
     @Multipart
-    @POST
+    @POST("upload/upload.php")
     Call<String> uploadFile(@Part MultipartBody.Part file);
 
 }
