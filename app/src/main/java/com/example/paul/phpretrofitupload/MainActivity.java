@@ -112,7 +112,8 @@ public class MainActivity extends AppCompatActivity implements UploadCallbacks {
                 .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        BASE_URL = et.getText().toString();
+                        String url = et.getText().toString();
+                        BASE_URL = "http://" + url + "/";
                         mService = getAPIUpload();
                         Log.e(TAG, "onClick: base url update: " + BASE_URL );
                         Toast.makeText(MainActivity.this, "base Url update: " + BASE_URL, Toast.LENGTH_SHORT).show();
