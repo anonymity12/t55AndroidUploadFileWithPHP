@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">phpRetrofitUpload</string>
+    <string name="update_url">update url</string>
 </resources>
