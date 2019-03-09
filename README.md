@@ -1,5 +1,13 @@
 # t55 androidRetrofitUploadFileWithPHP
 
+# 目的
+
+在同个局域网传输你的手机照片到电脑
+
+不要用微信传了吧，手机，电脑，大家都在一个局域网
+
+# src 
+
 this prj refer to **edmtdev** , a youtube channel you can check on Youtube
 
 author is eddydn71
